@@ -1,0 +1,27 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-15-intel, macos-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@675fcd27b59e54d310c5484c8c27c01d03da660c
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - run: brew install terraform-linters/tap/tflint
+      - run: tflint -v
