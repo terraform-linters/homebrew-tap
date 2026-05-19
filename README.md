@@ -7,6 +7,5 @@ Or `brew tap terraform-linters/tap` and then `brew install tflint`.
 Or, in a `brew bundle` `Brewfile`:
 
 ```ruby
-tap "terraform-linters/tap"
-brew "tflint"
+cask "terraform-linters/tap/tflint"
 ```
